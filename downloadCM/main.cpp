@@ -10,6 +10,8 @@
 #include <iostream>
 #include <string>
 
+#include <curl/curl.h>
+
 #include "main.h"
 #include "argFlags.h"
 #include "cmUpdate.h"
@@ -23,7 +25,8 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	argFlags flags;
+	argFlags flags; // Initialize where we're going to store flags.
+    curl_global_init(CURL_GLOBAL_ALL); // Initialize cURL library.
 	
 	if (argc <= 1) // Requires at least 1 argument to run properly.
 	{
