@@ -23,7 +23,7 @@ argFlags parseArguments(int number, char **arguments)
 	int devices = 0;
 	
 	// Walk through the arrays and copy each argument into the string array.
-	for (int count = 1; count < number; count++)
+	for (int count = 0; count < number; count++)
 	{
 		cmdArgs[count] = arguments[count];
 		// Now lets decide what they are and set flags.
@@ -38,28 +38,20 @@ argFlags parseArguments(int number, char **arguments)
 		else if (cmdArgs[count] == "-d")
 		{
 			// The -d option must have the device ID as the next argument.
-			if (count < number - 1)
+			if (count + 1 < number)
 			{
+                cmdArgs[count + 1] = arguments[count + 1];
 				devices++;
-				if (flags.getNumber() < devices)
-				{
-					flags.setNumber(devices);
-				}
-				flags.setDevice(cmdArgs[count + 1], devices);
+                flags.setNumber(devices);
+				flags.setDevice(cmdArgs[count + 1], devices - 1);
 				// Since we've just set the device ID, move skip that.
 				count++;
-			}
-			else
-			{
-				// There weren't enough arguments left to determine the
-				// device being asked for, fail and display help.
-				flags.setHelp(1);
 			}
 		}
 	}
 	
 	// Can't do this without any devices specified.
-	if (devices == 0)
+	if ((devices == 0) && (flags.getHelp() == 0))
 	{
 		cout << "You did not specify any devices, please review the help." << endl << endl;
 		flags.setHelp(1);

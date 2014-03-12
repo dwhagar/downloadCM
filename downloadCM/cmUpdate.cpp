@@ -127,16 +127,30 @@ int cmUpdate::checkUpdate(int force)
 string cmUpdate::parseHTML()
 {
     string result = " ";
+    string temp = " ";
 
     ifstream html("html.out");
     if (html.is_open())
     {
         do
         {
-            getline(html, result);
-            if ((result.find("http://") != -1) && (result.find(currentDate) != -1))
+            // Get a single bit of information from the file
+            getline(html, temp);
+            
+            // Try to find what we're looking for
+            // An http:// link with todays date in it
+            size_t protoPOS = temp.find("http://");
+            size_t datePOS = temp.find(currentDate);
+            
+            if ((protoPOS != -1) && (datePOS != -1))
             {
-                return result;
+                // If we find the link extract it
+                size_t urlEnd = temp.find(".zip", protoPOS) + 4;
+                if ((urlEnd > protoPOS) && (urlEnd > datePOS))
+                {
+                    result = temp.substr(protoPOS, urlEnd - protoPOS);
+                    return result;
+                }
             }
         } while (!html.eof());
     }

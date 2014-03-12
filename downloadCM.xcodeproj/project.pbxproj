@@ -11,6 +11,7 @@
 		F646A54118D0289000414A27 /* cmUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F646A53A18D0289000414A27 /* cmUpdate.cpp */; };
 		F646A54218D0289000414A27 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F646A53C18D0289000414A27 /* main.cpp */; };
 		F646A54318D0289000414A27 /* parseArguments.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F646A53D18D0289000414A27 /* parseArguments.cpp */; };
+		F6B53B5318D0B2AC007E0C92 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B53B5218D0B2AC007E0C92 /* libcurl.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,6 +37,7 @@
 		F646A53E18D0289000414A27 /* parseArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parseArguments.h; sourceTree = "<group>"; };
 		F646A53F18D0289000414A27 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		F646A54518D0297C00414A27 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		F6B53B5218D0B2AC007E0C92 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6B53B5318D0B2AC007E0C92 /* libcurl.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +55,7 @@
 		F646A51318D0266200414A27 = {
 			isa = PBXGroup;
 			children = (
+				F6B53B5218D0B2AC007E0C92 /* libcurl.dylib */,
 				F646A51E18D0266200414A27 /* downloadCM */,
 				F646A51D18D0266200414A27 /* Products */,
 			);
@@ -259,6 +263,7 @@
 				F646A52718D0266200414A27 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -18,7 +18,7 @@ argFlags::argFlags()
 	isVerbose = 0;
 	numDevices = 1; // Must be 1 to reflect size of the array in memory.
 	string *deviceIDs = new string[1]; // Initialize array memory.
-	deviceIDs[0] = " "; // Initialize array data.
+	deviceIDs[0] = "Empty"; // Initialize array data.
 }
 
 // Copy constructor
@@ -27,7 +27,6 @@ argFlags::argFlags(const argFlags &data)
 	help = data.help;
 	isVerbose = data.isVerbose;
 	numDevices = data.numDevices;
-	delete[] deviceIDs;
 	string *deviceIDs = new string[numDevices];
 	for(int count = 0; count < numDevices; count++)
 	{
@@ -82,13 +81,14 @@ void argFlags::setNumber(int number)
 
 void argFlags::setDevice(string id, int number)
 {
-	if ((number > numDevices) || (number < 0))
+	if ((number > numDevices - 1) || (number < 0))
 	{
 		// Impossible, don't do anything.
 		return;
 	}
 	else
 	{
+        
 		deviceIDs[number] = id;
 	}
 	
