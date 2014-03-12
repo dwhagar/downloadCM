@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 
+#include "main.h"
 #include "argFlags.h"
 #include "cmUpdate.h"
 #include "parseArguments.h"
