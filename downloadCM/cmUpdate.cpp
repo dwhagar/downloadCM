@@ -6,11 +6,13 @@
 //  Copyright (c) 2014 David Wade Hagar. All rights reserved.
 //
 
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <ctime>
 
 #include "cmUpdate.h"
+#include "downloadFile.h"
 
 using namespace std;
 
@@ -29,7 +31,27 @@ cmUpdate::cmUpdate()
 	tm *ltm = localtime(&now);
 	int curYear = ltm->tm_year + 1900;
 	int curMonth = ltm->tm_mon + 1;
-	currentDate = curYear + curMonth + ltm->tm_mday;
+    
+    string curMonthStr;
+    string curDayStr;
+    
+    if (curMonth < 10)
+    {
+        curMonthStr = "0" + to_string(curMonth);
+    }
+    else
+    {
+        curMonthStr = to_string(curMonth);
+    }
+    if (ltm->tm_mday < 10)
+    {
+        curDayStr = "0" + to_string(ltm->tm_mday);
+    }
+    else
+    {
+        curDayStr = to_string(ltm->tm_mday);
+    }
+    currentDate = to_string(curYear) + curMonthStr + curDayStr;
 }
 
 cmUpdate::~cmUpdate()
@@ -54,7 +76,15 @@ int cmUpdate::checkUpdate(int force)
 	}
 	else
 	{
-		// Stuff to do when you want to download the file.
+		int result = downloadFile(checkURL, "html.out");
+        if (result != 0)
+        {
+            return 3;
+        }
+        else
+        {
+            updateURL = parseHTML();
+        }
         return isUpdated;
 	}
 }
@@ -85,11 +115,13 @@ string cmUpdate::parseHTML()
                 if ((urlEnd > protoPOS) && (urlEnd > datePOS))
                 {
                     result = temp.substr(protoPOS, urlEnd - protoPOS);
+                    isUpdated = 1;
                     return result;
                 }
             }
         } while (!html.eof());
     }
+    isUpdated = 0;
     return result;
 }
 

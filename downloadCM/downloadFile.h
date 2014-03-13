@@ -17,9 +17,11 @@ using namespace std;
 #ifndef WIN32
 #include <curl/curl.h>
 
+// This function gives an unused function warning,
+// but is actually used.
 static size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream);
 #endif
 
-int downloadFile(string prefixURL, string deviceID, string filename);
+int downloadFile(string url, string filename);
 
 #endif

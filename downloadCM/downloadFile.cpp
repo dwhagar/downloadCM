@@ -20,13 +20,13 @@ int downloadFile(string filename)
 #ifndef WIN32
 #include <curl/curl.h>
 
-size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream)
+static size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream)
 {
 	size_t written = fwrite(ptr, size, nmemb, (FILE *)stream);
 	return written;
 }
 
-int downloadFile(string prefixURL, string deviceID, string filename)
+int downloadFile(string url, string filename)
 {
 	// Initialize all the memory we'll be needing for data.
 	CURL *curl;
@@ -41,8 +41,8 @@ int downloadFile(string prefixURL, string deviceID, string filename)
 	{
 		// Set the options we'll need to be using, including our URL.
 		// This will be a mix of prefixURL and the deviceID
-		string checkURL = prefixURL + deviceID;
-		curl_easy_setopt(curl, CURLOPT_URL, checkURL.c_str());
+		string checkURL = url;
+		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
 		curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);

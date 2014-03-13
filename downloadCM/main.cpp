@@ -73,7 +73,7 @@ int main(int argc, char **argv)
 			case 1:  // Update found.
 				if (flags.getVerbose() == 1)
 				{
-					cout << "Update found for device" << devices.at(count).getID() << " at URL:" << endl;
+					cout << "Update found for device " << devices.at(count).getID() << " at URL:" << endl;
 					cout << devices.at(count).getURL() << endl;
 				}
 				break;
