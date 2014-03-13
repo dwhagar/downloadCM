@@ -12,6 +12,7 @@
 		F646A54218D0289000414A27 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F646A53C18D0289000414A27 /* main.cpp */; };
 		F646A54318D0289000414A27 /* parseArguments.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F646A53D18D0289000414A27 /* parseArguments.cpp */; };
 		F6B53B5318D0B2AC007E0C92 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B53B5218D0B2AC007E0C92 /* libcurl.dylib */; };
+		F6E1D3BF18D163C300512612 /* downloadFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E1D3BE18D163C300512612 /* downloadFile.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +39,8 @@
 		F646A53F18D0289000414A27 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		F646A54518D0297C00414A27 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		F6B53B5218D0B2AC007E0C92 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
+		F6E1D3BE18D163C300512612 /* downloadFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = downloadFile.cpp; sourceTree = "<group>"; };
+		F6E1D3C018D163D500512612 /* downloadFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = downloadFile.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +92,8 @@
 		F646A54418D028B400414A27 /* Source Code */ = {
 			isa = PBXGroup;
 			children = (
+				F6E1D3C018D163D500512612 /* downloadFile.h */,
+				F6E1D3BE18D163C300512612 /* downloadFile.cpp */,
 				F646A53818D0289000414A27 /* argFlags.cpp */,
 				F646A53918D0289000414A27 /* argFlags.h */,
 				F646A53A18D0289000414A27 /* cmUpdate.cpp */,
@@ -155,6 +160,7 @@
 				F646A54318D0289000414A27 /* parseArguments.cpp in Sources */,
 				F646A54118D0289000414A27 /* cmUpdate.cpp in Sources */,
 				F646A54018D0289000414A27 /* argFlags.cpp in Sources */,
+				F6E1D3BF18D163C300512612 /* downloadFile.cpp in Sources */,
 				F646A54218D0289000414A27 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

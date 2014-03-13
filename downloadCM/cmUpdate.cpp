@@ -55,6 +55,7 @@ int cmUpdate::checkUpdate(int force)
 	else
 	{
 		// Stuff to do when you want to download the file.
+        return isUpdated;
 	}
 }
 

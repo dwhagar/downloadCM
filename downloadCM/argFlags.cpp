@@ -19,7 +19,7 @@ argFlags::argFlags()
 	isVerbose = 0;
 	numDevices = 1; // Must be 1 to reflect size of the array in memory.
 	deviceIDs.resize(1);
-	deviceIDs.at(1) = " ";
+	deviceIDs.at(0) = " ";
 }
 
 // Copy constructor

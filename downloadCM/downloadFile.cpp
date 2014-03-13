@@ -26,7 +26,7 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream)
 	return written;
 }
 
-int downloadFile(string filename)
+int downloadFile(string prefixURL, string deviceID, string filename)
 {
 	// Initialize all the memory we'll be needing for data.
 	CURL *curl;
@@ -62,5 +62,9 @@ int downloadFile(string filename)
 		curl_easy_cleanup(curl);
 		return 0; // Success
 	}
+    else
+    {
+        return 1; // Failed
+    }
 }
 #endif

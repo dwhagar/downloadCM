@@ -20,6 +20,6 @@ using namespace std;
 static size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream);
 #endif
 
-int downloadFile(string filename);
+int downloadFile(string prefixURL, string deviceID, string filename);
 
 #endif
