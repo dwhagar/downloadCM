@@ -47,31 +47,21 @@ void argFlags::setVerbose(int yesNo)
 
 void argFlags::setNumber(int number)
 {
-	if (number == numDevices)
+	if (number != numDevices)
 	{
-		// Data is unchanged, do nothing.
-		return;
-	}
-	else
-	{
-		// Resize the vector and set the new size.
 		deviceIDs.resize(number);
 		numDevices = number;
 	}
 }
 
+// Makes sure that element number for the device is within
+// the proper range.
 void argFlags::setDevice(string id, int number)
 {
-	if ((number > numDevices - 1) || (number < 0))
-	{
-		// Impossible, don't do anything.
-		return;
-	}
-	else
+	if ((number < numDevices) && (number >= 0))
 	{
 		deviceIDs.at(number) = id;
 	}
-	
 }
 
 void argFlags::setHelp(int number)
@@ -93,12 +83,12 @@ string argFlags::deviceID(int number)
 {
 	if (number > numDevices)
 	{
-		// Never try to access beyond the array.
+		// Never try to access beyond the vector size.
 		return deviceIDs.at(numDevices - 1);
 	}
 	else if (number < 0)
 	{
-		// Never try to access beyond the array.
+		// Never try to access beyond the vector size.
 		return deviceIDs.at(0);
 	}
 	else
