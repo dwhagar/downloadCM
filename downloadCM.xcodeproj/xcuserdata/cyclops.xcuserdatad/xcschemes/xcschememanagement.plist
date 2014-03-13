@@ -4,17 +4,27 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>downloadCM -d (Error Test).xcscheme</key>
+		<key>Option -d -v Test with Multiple Devices.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>5</integer>
 		</dict>
-		<key>downloadCM -d n5110 (Silent Update Check).xcscheme</key>
+		<key>Option -d Test with Multiple Devices.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>Option -d Test with Single Device.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
-		<key>downloadCM -h (Help Test).xcscheme</key>
+		<key>Option -d Test with no Devices.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Option -h Display Help Test.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>

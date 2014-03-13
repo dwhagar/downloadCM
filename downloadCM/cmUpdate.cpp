@@ -30,7 +30,6 @@ cmUpdate::cmUpdate()
 	int curYear = ltm->tm_year + 1900;
 	int curMonth = ltm->tm_mon + 1;
 	currentDate = curYear + curMonth + ltm->tm_mday;
-	delete ltm;
 }
 
 cmUpdate::~cmUpdate()
@@ -41,6 +40,7 @@ cmUpdate::~cmUpdate()
 void cmUpdate::setID(string id)
 {
 	deviceID = id;
+    checkURL= checkURL + deviceID;
 }
 
 // Check for an update, parameter of "forced" allows an update check to be

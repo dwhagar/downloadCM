@@ -67,7 +67,7 @@ int main(int argc, char **argv)
 			case 0: // No update found.
 				if (flags.getVerbose() == 1)
 				{
-					cout << "No update found for " << devices.at(count).getID() << endl;
+					cout << "No update found for " << devices.at(count).getID() << "." << endl;
 				}
 				break;
 			case 1:  // Update found.
@@ -80,13 +80,13 @@ int main(int argc, char **argv)
 			case 2: // Update not checked (this should not happen unless there is an error).
 				if (flags.getVerbose() == 1)
 				{
-					cout << "Did not check for update for device " << devices.at(count).getID() << endl;
+					cout << "Did not check for update for device " << devices.at(count).getID() << "." << endl;
 				}
 				break;
 			default: // Got something back that we didn't know how to handle.
 				if (flags.getVerbose() == 1)
 				{
-					cout << "Something went wrong checking for device " << devices.at(count).getID() << endl;
+					cout << "Something went wrong checking for device " << devices.at(count).getID() << "." << endl;
 				}				
 		}
 	}
