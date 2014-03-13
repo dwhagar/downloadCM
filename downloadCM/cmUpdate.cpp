@@ -6,10 +6,7 @@
 //  Copyright (c) 2014 David Wade Hagar. All rights reserved.
 //
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <fstream>
-#include <iostream>
 #include <string>
 #include <ctime>
 

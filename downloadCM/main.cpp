@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
+#include <vector>
 
 #ifndef WIN32
 #include <curl/curl.h>
@@ -52,39 +53,40 @@ int main(int argc, char **argv)
 	// Copy device ID's into array of cmUpdate objects, then check for updates.
 	int number = flags.getNumber();
 	int result = 2;
-	cmUpdate *devices = new cmUpdate[number];
+	vector<cmUpdate> devices;
+	devices.resize(number);
 	
 	for(int count = 0; count < number; count++)
 	{
 		// Rather than walk through the array twice, do this all at once.
-		devices[number].setID(flags.deviceID(count));
-		result = devices[number].checkUpdate(0);
+		devices.at(number).setID(flags.deviceID(count));
+		result = devices.at(number).checkUpdate(0);
 	
 		switch(result) 
 		{
 			case 0: // No update found.
 				if (flags.getVerbose() == 1)
 				{
-					cout << "No update found for " << devices[number].getID() << endl;
+					cout << "No update found for " << devices.at(number).getID() << endl;
 				}
 				break;
 			case 1:  // Update found.
 				if (flags.getVerbose() == 1)
 				{
-					cout << "Update found for device" << devices[number].getID() << " at URL:" << endl;
+					cout << "Update found for device" << devices.at(number).getID() << " at URL:" << endl;
 					cout << devices[number].getURL() << endl;				
 				}
 				break;
 			case 2: // Update not checked (this should not happen unless there is an error).
 				if (flags.getVerbose() == 1)
 				{
-					cout << "Did not check for update for device " << devices[number].getID() << endl;
+					cout << "Did not check for update for device " << devices.at(number).getID() << endl;
 				}
 				break;
 			default: // Got something back that we didn't know how to handle.
 				if (flags.getVerbose() == 1)
 				{
-					cout << "Something went wrong checking for device " << devices[number].getID() << endl;
+					cout << "Something went wrong checking for device " << devices.at(number).getID() << endl;
 				}				
 		}
 	}
@@ -93,7 +95,6 @@ int main(int argc, char **argv)
 	// the computer from hitting the server when we've already gotten the
 	// update.  Add to cmUpdate class?
 	
-	delete[] devices;
 	return 0;
 }
 

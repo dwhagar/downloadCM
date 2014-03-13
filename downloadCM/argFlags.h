@@ -14,6 +14,7 @@
 //  Add flag for file output destination.
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -39,7 +40,7 @@ class argFlags
 		int help;
 		int isVerbose;
 		int numDevices;
-		string *deviceIDs;
+		vector<string> deviceIDs;
 };
 
 #endif

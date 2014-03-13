@@ -7,6 +7,7 @@
 //
 
 #include <string>
+#include <vector>
 
 #include "argFlags.h"
 
@@ -17,8 +18,8 @@ argFlags::argFlags()
 	help = 0;
 	isVerbose = 0;
 	numDevices = 1; // Must be 1 to reflect size of the array in memory.
-	string *deviceIDs = new string[1]; // Initialize array memory.
-	deviceIDs[0] = "Empty"; // Initialize array data.
+	deviceIDs.resize(1);
+	deviceIDs.at(1) = " ";
 }
 
 // Copy constructor
@@ -27,17 +28,16 @@ argFlags::argFlags(const argFlags &data)
 	help = data.help;
 	isVerbose = data.isVerbose;
 	numDevices = data.numDevices;
-	string *deviceIDs = new string[numDevices];
+	deviceIDs.resize(deviceIDs.size());
 	for(int count = 0; count < numDevices; count++)
 	{
-		deviceIDs[count] = data.deviceIDs[count];
+		deviceIDs.at(count) = data.deviceIDs.at(count);
 	}
 }
 
 argFlags::~argFlags()
 {
-	// Cleanup memory.
-	delete[] deviceIDs;
+	// Nothing to see here.
 }
 
 void argFlags::setVerbose(int yesNo)
@@ -54,28 +54,9 @@ void argFlags::setNumber(int number)
 	}
 	else
 	{
-		// Create a new string array and copy existing data to it.
-		string *temp = new string[numDevices];
-		for(int count = 0; count < numDevices; count++)
-		{
-			temp[count] = deviceIDs[count];
-		}
-		
-		// Delete the old array data now that it is copied.
-		delete [] deviceIDs;
-		
-		// Redefine array and copy in old data.
-		string *deviceIDs = new string[number];
-		for(int count = 0; count < numDevices; count++)
-		{
-			deviceIDs[count] = temp[count];
-		}
-		
-		// Set the parameter now that the array is the correct size.
+		// Resize the vector and set the new size.
+		deviceIDs.resize(number);
 		numDevices = number;
-		
-		// Delete the temporary array.
-		delete[] temp;
 	}
 }
 
@@ -88,8 +69,7 @@ void argFlags::setDevice(string id, int number)
 	}
 	else
 	{
-        
-		deviceIDs[number] = id;
+		deviceIDs.at(number) = id;
 	}
 	
 }
@@ -114,16 +94,16 @@ string argFlags::deviceID(int number)
 	if (number > numDevices)
 	{
 		// Never try to access beyond the array.
-		return deviceIDs[numDevices - 1];
+		return deviceIDs.at(numDevices - 1);
 	}
 	else if (number < 0)
 	{
 		// Never try to access beyond the array.
-		return deviceIDs[0];
+		return deviceIDs.at(0);
 	}
 	else
 	{
-		return deviceIDs[number];
+		return deviceIDs.at(number);
 	}
 }
 

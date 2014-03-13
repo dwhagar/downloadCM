@@ -8,6 +8,7 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 #include "parseArguments.h"
 
 using namespace std;
@@ -16,7 +17,7 @@ argFlags parseArguments(int number, char **arguments)
 {
 	// Create a string array to copy arguments into, since strings are easier
 	// to work with.
-	string *cmdArgs = new string[number];
+	vector<string> cmdArgs(number);
 	// Create the return variable.
 	argFlags flags;
 	// Keep track of number of devices.
@@ -25,25 +26,25 @@ argFlags parseArguments(int number, char **arguments)
 	// Walk through the arrays and copy each argument into the string array.
 	for (int count = 0; count < number; count++)
 	{
-		cmdArgs[count] = arguments[count];
+		cmdArgs.at(count) = arguments[count];
 		// Now lets decide what they are and set flags.
-		if (cmdArgs[count] == "-h")
+		if (cmdArgs.at(count) == "-h")
 		{
 			flags.setHelp(1);
 		}
-		else if (cmdArgs[count] == "-v")
+		else if (cmdArgs.at(count) == "-v")
 		{
 			flags.setVerbose(1);
 		}
-		else if (cmdArgs[count] == "-d")
+		else if (cmdArgs.at(count) == "-d")
 		{
 			// The -d option must have the device ID as the next argument.
 			if (count + 1 < number)
 			{
-                cmdArgs[count + 1] = arguments[count + 1];
+                cmdArgs.at(count + 1) = arguments[count + 1];
 				devices++;
                 flags.setNumber(devices);
-				flags.setDevice(cmdArgs[count + 1], devices - 1);
+				flags.setDevice(cmdArgs.at(count + 1), devices - 1);
 				// Since we've just set the device ID, move skip that.
 				count++;
 			}
@@ -56,7 +57,6 @@ argFlags parseArguments(int number, char **arguments)
 		cout << "You did not specify any devices, please review the help." << endl << endl;
 		flags.setHelp(1);
 	}
-	
-	delete[] cmdArgs;
+
 	return flags;
 }
