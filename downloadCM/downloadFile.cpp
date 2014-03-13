@@ -30,7 +30,6 @@ int downloadFile(string url, string filename, int verbose)
 {
 	// Initialize all the memory we'll be needing for data.
 	CURL *curl;
-	//static const char *bodyfilename = filename.c_str();
 	FILE *bodyfile;
 
 	// Initialize curl_Easy
@@ -50,8 +49,6 @@ int downloadFile(string url, string filename, int verbose)
 			curl_easy_cleanup(curl);
 			return 1; // Failed to open the file.
 		}
-
-        //cout << filename << " " << bodyfilename << endl;
         
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, bodyfile);
 		curl_easy_perform(curl);
