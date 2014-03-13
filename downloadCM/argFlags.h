@@ -11,7 +11,6 @@
 
 // TODO:
 //  Restrict ability to set flags to unexpected values.
-//  Add flag for file output destination.
 
 #include <string>
 #include <vector>
@@ -35,11 +34,17 @@ class argFlags
 		int getNumber();
 		string deviceID(int number);
 		int getHelp();
+        string getLocation();
+        void setLocation(string location);
+        int getSubFolder();
+        void setSubFolder(int useSubFolder);
 		
 	private:
 		int help;
 		int isVerbose;
 		int numDevices;
+        string downloadLocation;
+        int subFolder;
 		vector<string> deviceIDs;
 };
 

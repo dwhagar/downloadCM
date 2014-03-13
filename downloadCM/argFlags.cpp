@@ -17,6 +17,8 @@ argFlags::argFlags()
 {
 	help = 0;
 	isVerbose = 0;
+    downloadLocation = "./"; // Use the current working directory.
+    subFolder = 1; // Default is to use subfolders.
 	numDevices = 1; // Must be 1 to reflect size of the array in memory.
 	deviceIDs.resize(1);
 	deviceIDs.at(0) = " ";
@@ -29,6 +31,8 @@ argFlags::argFlags(const argFlags &data)
 	isVerbose = data.isVerbose;
 	numDevices = data.numDevices;
 	deviceIDs.resize(deviceIDs.size());
+    downloadLocation = data.downloadLocation;
+    subFolder = data.subFolder;
 	for(int count = 0; count < numDevices; count++)
 	{
 		deviceIDs.at(count) = data.deviceIDs.at(count);
@@ -101,3 +105,43 @@ int argFlags::getHelp()
 {
 	return help;
 }
+
+string argFlags::getLocation()
+{
+    return downloadLocation;
+}
+
+int argFlags::getSubFolder()
+{
+    return subFolder;
+}
+
+void argFlags::setLocation(string location)
+{
+    char endPath = '/';
+#ifdef WIN32 // Pesky windows using a \ not a /
+    char endPath = '\';
+#endif
+
+    if (location.back() == endPath) // Good the user was smart
+    {
+        downloadLocation = location;
+    }
+    else // If no trailing slash or backslash is appent one
+    {
+        downloadLocation = location + endPath;
+    }
+}
+
+void argFlags::setSubFolder(int useSubFolder)
+{
+    if (useSubFolder < 0)
+    {
+        subFolder = 0;
+    }
+    else
+    {
+        subFolder = 1;
+    }
+}
+

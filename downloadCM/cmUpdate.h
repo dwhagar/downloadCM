@@ -29,6 +29,7 @@ class cmUpdate
 		string getURL();
 		string getID();
         int downloadUpdate(int verbose);
+        string getFilename();
 		
 	protected:
 		string deviceID;

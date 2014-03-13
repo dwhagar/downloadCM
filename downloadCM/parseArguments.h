@@ -6,13 +6,12 @@
 //  Copyright (c) 2014 David Wade Hagar. All rights reserved.
 //
 
+#include <string>
+
 #include "argFLags.h"
 
 // Parses command line arguments for downloadCM project and returns them
 // as an argFlags object.
-
-// TODO:
-// * Add -o argument, file output destination
 
 using namespace std;
 
@@ -20,5 +19,6 @@ using namespace std;
 #define PARSEARGUMENTS_H
 
 argFlags parseArguments(int number, char **arguments);
+string getArgPair(int number, int max, vector<string> arguments);
 
 #endif

@@ -22,6 +22,7 @@ argFlags parseArguments(int number, char **arguments)
 	argFlags flags;
 	// Keep track of number of devices.
 	int devices = 0;
+    string tempStr;
 	
 	// Walk through the arrays and copy each argument into the string array.
 	for (int count = 0; count < number; count++)
@@ -38,17 +39,35 @@ argFlags parseArguments(int number, char **arguments)
 		}
 		else if (cmdArgs.at(count) == "-d")
 		{
-			// The -d option must have the device ID as the next argument.
-			if (count + 1 < number)
-			{
-                cmdArgs.at(count + 1) = arguments[count + 1];
-				devices++;
-                flags.setNumber(devices);
-				flags.setDevice(cmdArgs.at(count + 1), devices - 1);
-				// Since we've just set the device ID, move skip that.
-				count++;
-			}
+            tempStr = getArgPair(count, number, cmdArgs);
+            if (tempStr == " ")
+            {
+                // Nothing returned, invalid pair
+            }
+            else
+            {
+                devices++; // found a device
+                // Valid flag pair
+                count++;
+            }
 		}
+        else if (cmdArgs.at(count) == "-p")
+        {
+            tempStr = getArgPair(count, number, cmdArgs);
+            if (tempStr == " ")
+            {
+                // Nothing returned, invalid pair
+            }
+            else
+            {
+                // Valid flag pair
+                count++;
+            }
+        }
+        else if (cmdArgs.at(count) == "-s")
+        {
+            flags.setSubFolder(1);
+        }
 	}
 	
 	// Can't do this without any devices specified.
@@ -59,4 +78,19 @@ argFlags parseArguments(int number, char **arguments)
 	}
 
 	return flags;
+}
+
+
+// Checks to make sure they are enough arguments passed to fill in the other side of the
+// argument pair, and returns the next item.
+string getArgPair(int number, int max, vector<string> arguments)
+{
+    if (number + 1 < max)
+    {
+        return arguments.at(number + 1);
+    }
+    else
+    {
+        return " ";
+    }
 }

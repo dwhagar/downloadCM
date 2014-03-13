@@ -151,3 +151,8 @@ string cmUpdate::getID()
 {
 	return deviceID;
 }
+
+string cmUpdate::getFilename()
+{
+    return updateFilename;
+}

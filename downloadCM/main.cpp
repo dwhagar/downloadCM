@@ -75,7 +75,9 @@ int main(int argc, char **argv)
 				{
 					cout << "Update found for device " << devices.at(count).getID() << " at URL:" << endl;
 					cout << devices.at(count).getURL() << endl;
-                    cout << "Attempting to download update file." << endl;
+                    cout << "Attempting to download update file " << devices.at(count).getFilename() << "." << endl;
+                    cout << "Using download path below with subfolder download set to " << flags.getSubFolder() << "." << endl;
+                    cout << flags.getLocation() << endl;
 				}
                 devices.at(count).downloadUpdate(flags.getVerbose());
             break;
@@ -108,6 +110,9 @@ void displayHelp()
 	cout << "Usage:  downloadCM [-v] -d id [-d id2] [-d id3]" << endl;
 	cout << " -v     Verbose Mode, Log activity to the console." << endl;
 	cout << " -d id  Specify the CyanogenMod device ID to check on." << endl;
+    cout << " -p     Sets the path for the download." << endl;
+    cout << " -s     Specifies the program should download updates to sub-folders by the" << endl;
+    cout << "        device ID specified above." << endl;
 	cout << " -h     Display this help message." << endl << endl;
 	cout << "You must specify at least one device ID with the -d option, otherwise this" << endl;
 	cout << "message displays.  Unless you specify the -v option, this program is silent." << endl << endl;
