@@ -26,11 +26,11 @@ static size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream)
 	return written;
 }
 
-int downloadFile(string url, string filename)
+int downloadFile(string url, string filename, int verbose)
 {
 	// Initialize all the memory we'll be needing for data.
 	CURL *curl;
-	static const char *bodyfilename = filename.c_str();
+	//static const char *bodyfilename = filename.c_str();
 	FILE *bodyfile;
 
 	// Initialize curl_Easy
@@ -39,21 +39,20 @@ int downloadFile(string url, string filename)
 	// If curl initializes, lets try to get our update page.
 	if (curl)
 	{
-		// Set the options we'll need to be using, including our URL.
-		// This will be a mix of prefixURL and the deviceID
-		string checkURL = url;
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-		curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
+        curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
 
 		// Open the file we're going to put this stuff in.
-		bodyfile = fopen(bodyfilename, "wb");
+		bodyfile = fopen(filename.c_str(), "wb");
 		if (bodyfile == NULL) {
 			curl_easy_cleanup(curl);
 			return 1; // Failed to open the file.
 		}
 
+        //cout << filename << " " << bodyfilename << endl;
+        
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, bodyfile);
 		curl_easy_perform(curl);
 		fclose(bodyfile);

@@ -28,6 +28,7 @@ class cmUpdate
 		int checkUpdate(int force);
 		string getURL();
 		string getID();
+        int downloadUpdate(int verbose);
 		
 	protected:
 		string deviceID;
@@ -35,8 +36,10 @@ class cmUpdate
 		string currentDate;
 		string prefixURL;
 		string checkURL;
+        string updateFilename;
 		int isUpdated;
         string parseHTML();
+        string parseURL();
 };
 
 #endif

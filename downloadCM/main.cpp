@@ -75,14 +75,16 @@ int main(int argc, char **argv)
 				{
 					cout << "Update found for device " << devices.at(count).getID() << " at URL:" << endl;
 					cout << devices.at(count).getURL() << endl;
+                    cout << "Attempting to download update file." << endl;
 				}
-				break;
+                devices.at(count).downloadUpdate(flags.getVerbose());
+            break;
 			case 2: // Update not checked (this should not happen unless there is an error).
 				if (flags.getVerbose() == 1)
 				{
 					cout << "Did not check for update for device " << devices.at(count).getID() << "." << endl;
 				}
-				break;
+            break;
 			default: // Got something back that we didn't know how to handle.
 				if (flags.getVerbose() == 1)
 				{

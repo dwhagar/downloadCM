@@ -21,6 +21,7 @@ cmUpdate::cmUpdate()
 	// Initialize blank or known values.
 	deviceID = " ";
 	updateURL = " ";
+    updateFilename = " ";
 	prefixURL = "http://get.cm";
 	checkURL = "http://download.cyanogenmod.com/?device=";
 	isUpdated = 2; // a value of 2 denotes that nothing has been cheched yet.
@@ -76,7 +77,7 @@ int cmUpdate::checkUpdate(int force)
 	}
 	else
 	{
-		int result = downloadFile(checkURL, "html.out");
+		int result = downloadFile(checkURL, "html.out", 0);
         if (result != 0)
         {
             return 3;
@@ -84,9 +85,16 @@ int cmUpdate::checkUpdate(int force)
         else
         {
             updateURL = parseHTML();
+            updateFilename = parseURL();
         }
         return isUpdated;
 	}
+}
+
+int cmUpdate::downloadUpdate(int verbose)
+{
+    int result = downloadFile(updateURL, updateFilename, verbose);
+    return result;
 }
 
 // Now lets parse the output file to find if an update has been release.
@@ -122,6 +130,15 @@ string cmUpdate::parseHTML()
         } while (!html.eof());
     }
     isUpdated = 0;
+    return result;
+}
+
+// Extracts the filename from the URL
+string cmUpdate::parseURL()
+{
+    size_t slashPOS = updateURL.find("/cm");
+    size_t zipPOS = updateURL.find(".zip");
+    string result = updateURL.substr(slashPOS + 1, zipPOS + 4 - slashPOS + 1);
     return result;
 }
 
