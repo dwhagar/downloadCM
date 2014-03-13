@@ -91,9 +91,9 @@ int cmUpdate::checkUpdate(int force)
 	}
 }
 
-int cmUpdate::downloadUpdate(int verbose)
+int cmUpdate::downloadUpdate(string location, int verbose)
 {
-    int result = downloadFile(updateURL, updateFilename, verbose);
+    int result = downloadFile(updateURL, location + updateFilename, verbose);
     return result;
 }
 

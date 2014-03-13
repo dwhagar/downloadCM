@@ -79,7 +79,7 @@ int main(int argc, char **argv)
                     cout << "Using download path below with subfolder download set to " << flags.getSubFolder() << "." << endl;
                     cout << flags.getLocation() << endl;
 				}
-                devices.at(count).downloadUpdate(flags.getVerbose());
+                devices.at(count).downloadUpdate(flags.getLocation(), flags.getVerbose());
             break;
 			case 2: // Update not checked (this should not happen unless there is an error).
 				if (flags.getVerbose() == 1)
@@ -107,7 +107,7 @@ void displayHelp()
 	cout << "This program attempts to download updates for supported CyanogenMod devices." << endl;
 	cout << "It was designed to be run via cron and in its default state, only displays" << endl;
 	cout << "errors and not successes." << endl << endl;
-	cout << "Usage:  downloadCM [-v] -d id [-d id2] [-d id3]" << endl;
+	cout << "Usage:  downloadCM [-v] [-p path] [-s] -d id [-d id2] [-d id3]" << endl;
 	cout << " -v     Verbose Mode, Log activity to the console." << endl;
 	cout << " -d id  Specify the CyanogenMod device ID to check on." << endl;
     cout << " -p     Sets the path for the download." << endl;

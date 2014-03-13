@@ -40,31 +40,25 @@ argFlags parseArguments(int number, char **arguments)
 		else if (cmdArgs.at(count) == "-d")
 		{
             tempStr = getArgPair(count, number, cmdArgs);
-            if (tempStr == " ")
+            if (tempStr != " ")
             {
-                // Nothing returned, invalid pair
-            }
-            else
-            {
-                devices++; // found a device
-                // Valid flag pair
-                count++;
+                devices++; // found a device, keep track of how many
+				flags.setNumber(devices);
+				flags.setDevice(tempStr, devices);
+                count++; // bump the count, since we found the device
+				         // flag and it's paired ID
             }
 		}
-        else if (cmdArgs.at(count) == "-p")
+        else if (cmdArgs.at(count) == "-p") // Set the location for download
         {
             tempStr = getArgPair(count, number, cmdArgs);
-            if (tempStr == " ")
+            if (tempStr != " ")
             {
-                // Nothing returned, invalid pair
-            }
-            else
-            {
-                // Valid flag pair
-                count++;
+				flags.setLocation(tempStr);
+                count++; // bump count, since this is an argument pair
             }
         }
-        else if (cmdArgs.at(count) == "-s")
+        else if (cmdArgs.at(count) == "-s")  // Use subfolders for downloads
         {
             flags.setSubFolder(1);
         }

@@ -28,6 +28,7 @@ argFlags::argFlags()
 // Copy constructor
 argFlags::argFlags(const argFlags &data)
 {
+	// Copy everything from one object to the other.
 	help = data.help;
 	isVerbose = data.isVerbose;
 	numDevices = data.numDevices;
@@ -131,11 +132,8 @@ void argFlags::setLocation(string location)
 
 void argFlags::setSubFolder(int useSubFolder)
 {
-    if (useSubFolder < 0)
-    {
-        subFolder = 0;
-    }
-    else
+	subFolder = 0;
+    if (useSubFolder > 0)
     {
         subFolder = 1;
     }

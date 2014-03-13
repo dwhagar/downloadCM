@@ -28,7 +28,7 @@ class cmUpdate
 		int checkUpdate(int force);
 		string getURL();
 		string getID();
-        int downloadUpdate(int verbose);
+        int downloadUpdate(string location, int verbose);
         string getFilename();
 		
 	protected:
