@@ -10,7 +10,9 @@
 #include <iostream>
 #include <string>
 
+#ifndef WIN32
 #include <curl/curl.h>
+#endif
 
 #include "main.h"
 #include "argFlags.h"
@@ -26,8 +28,10 @@ using namespace std;
 int main(int argc, char **argv)
 {
 	argFlags flags; // Initialize where we're going to store flags.
-    curl_global_init(CURL_GLOBAL_ALL); // Initialize cURL library.
-	
+#ifndef WIN32
+	curl_global_init(CURL_GLOBAL_ALL); // Initialize cURL library.
+#endif
+
 	if (argc <= 1) // Requires at least 1 argument to run properly.
 	{
 		cout << "Please specify what you'd like me to do, use the -h option for help." << endl;
