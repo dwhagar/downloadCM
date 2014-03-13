@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "argFlags.h"
+#include "downloadFile.h"
 
 using namespace std;
 
@@ -118,18 +119,13 @@ int argFlags::getSubFolder()
 
 void argFlags::setLocation(string location)
 {
-    char endPath = '/';
-#ifdef WIN32 // Pesky windows using a \ not a /
-    char endPath = '\';
-#endif
-
-    if (location.back() == endPath) // Good the user was smart
+    if (location.back() == pathEnd) // Good the user was smart
     {
         downloadLocation = location;
     }
     else // If no trailing slash or backslash is appent one
     {
-        downloadLocation = location + endPath;
+        downloadLocation = location + pathEnd;
     }
 }
 
