@@ -19,6 +19,7 @@
 #include "argFlags.h"
 #include "cmUpdate.h"
 #include "parseArguments.h"
+#include "downloadFile.h"
 
 using namespace std;
 
@@ -55,6 +56,7 @@ int main(int argc, char **argv)
 	int result = 2;
 	vector<cmUpdate> devices;
 	devices.resize(number);
+    string tempLocation;
 	
 	for(int count = 0; count < number; count++)
 	{
@@ -79,7 +81,15 @@ int main(int argc, char **argv)
                     cout << "Using download path below with subfolder download set to " << flags.getSubFolder() << "." << endl;
                     cout << flags.getLocation() << endl;
 				}
-                devices.at(count).downloadUpdate(flags.getLocation(), flags.getVerbose());
+                if (flags.getSubFolder() == 1)
+                {
+                    tempLocation = flags.getLocation() + devices.at(count).getID() + pathEnd;
+                }
+                else
+                {
+                    tempLocation = flags.getLocation();
+                }
+                devices.at(count).downloadUpdate(tempLocation, flags.getVerbose());
             break;
 			case 2: // Update not checked (this should not happen unless there is an error).
 				if (flags.getVerbose() == 1)
