@@ -25,6 +25,8 @@ static size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream);
 
 // Win32 code, sets proper path ending character constant
 #ifdef WIN32
+#pragma comment ( lib, "Wininet.lib" )
+
 const char pathEnd = '\\';
 #endif
 
