@@ -32,7 +32,12 @@ int downloadFile(string url, string filename, int verbose)
 	size_t endOfServerName = url.find(8, url.find('/', 8));
 	string serverName = url.substr(8, endOfServerName - 9);
 	string resourceName = url.substr(endOfServerName + 1, url.length() - endOfServerName);
-	string mimeType = "application/octet-stream";
+	
+	// Couldn't use strings here, as it is an array of char arrays.  It is hard
+	// coded, however, so not worried about memory issues.
+	char *mimeTypes[2];
+	mimeTypes[0] = "text/*";
+	mimeTypes[1] = "application/*";
 
 	HINTERNET httpCon = InternetConnect(
 		netCon,
@@ -49,12 +54,47 @@ int downloadFile(string url, string filename, int verbose)
 		resourceName.c_str(),
 		NULL,
 		NULL,
-		mimeType.c_str(),
+		mimeTypes,
 		0,
 		NULL);
+	bool sendReq = HttpSendRequest(
+		httpReq,
+		NULL,
+		NULL,
+		NULL,
+		0);
+
+	if (sendReq)
+	{
+		// Lets open that file now.
+		ofstream outputFile;
+		outputFile.open(filename.c_str(), ios::out);
+
+		// Get ready to pull data from the Internet.
+		bool readFile;
+		byte dataIn[1024];
+		LPDWORD readSize;
+
+		// Here is our loop, should run until the server reports there is no more
+		// file to read.
+		do
+		{
+			readFile = InternetReadFile(
+				httpReq,
+				dataIn,
+				1024,
+				readSize);
+
+			outputFile << dataIn;  // Should work like cout does, just dump data out
+		} while ((readFile) && (readSize > 0));
+
+		outputFile.close(); // Make sure we close the file.
+	}
 
 	// Handle clenaup
-
+	InternetCloseHandle(httpReq);
+	InternetCloseHandle(httpCon);
+	InternetCloseHandle(netCon);
 }
 #endif
 
