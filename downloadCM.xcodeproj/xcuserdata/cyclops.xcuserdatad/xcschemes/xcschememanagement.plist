@@ -34,10 +34,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>downloadTest.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>F646A51B18D0266200414A27</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F687FD3818D3531900390D5A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
