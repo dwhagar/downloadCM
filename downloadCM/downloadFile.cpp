@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <cmath>
 
 #include "downloadfile.h"
 
@@ -129,6 +130,31 @@ static size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream)
 	return written;
 }
 
+int progress_func(void* ptr, double TotalToDownload, double NowDownloaded, double TotalToUpload, double NowUploaded)
+{
+    // how wide you want the progress meter to be
+    int totaldotz=40;
+    double fractiondownloaded = NowDownloaded / TotalToDownload;
+    // part of the progressmeter that's already "full"
+    int dotz = round(fractiondownloaded * totaldotz);
+    
+    // create the "meter"
+    int ii=0;
+    printf("%3.0f%% [",fractiondownloaded*100);
+    // part  that's full already
+    for ( ; ii < dotz;ii++) {
+        printf("=");
+    }
+    // remaining part (spaces)
+    for ( ; ii < totaldotz;ii++) {
+        printf(" ");
+    }
+    // and back to line begin - do not forget the fflush to avoid output buffering problems!
+    printf("]\r");
+    fflush(stdout);
+    return 0;
+}
+
 int downloadFile(string url, string filename, int verbose)
 {
 	// Initialize all the memory we'll be needing for data.
@@ -143,7 +169,18 @@ int downloadFile(string url, string filename, int verbose)
 	{
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-        curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
+        
+        // Verbose progress bar
+        if (verbose == 0)
+        {
+            curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
+        }
+        else
+        {
+            curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0L);
+            curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, progress_func);
+        }
+        
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
 
 		// Open the file we're going to put this stuff in.
@@ -156,7 +193,13 @@ int downloadFile(string url, string filename, int verbose)
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, bodyfile);
 		curl_easy_perform(curl);
 		fclose(bodyfile);
-
+        
+        // Handles the progress bar issue, though I'd like another solution.
+        if (verbose ==1)
+        {
+            cout << endl;
+        }
+        
 		/* always cleanup */
 		curl_easy_cleanup(curl);
 		return 0; // Success

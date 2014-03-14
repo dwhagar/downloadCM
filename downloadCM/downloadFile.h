@@ -21,6 +21,7 @@ const char pathEnd = '/';
 // This function gives an unused function warning,
 // but is actually used.
 static size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream);
+int progress_func(void* ptr, double TotalToDownload, double NowDownloaded, double TotalToUpload, double NowUploaded);
 #endif
 
 // Win32 code, sets proper path ending character constant
