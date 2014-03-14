@@ -68,6 +68,18 @@ int downloadFile(string url, string filename, int verbose)
 
 				if (sendReq == TRUE)
 				{
+					char queryBuffer[4096];
+					DWORD querySize = 4069;
+					LPDWORD querySizePtr = &querySize;
+					bool queryInfo = HttpQueryInfo(
+						httpReq,
+						HTTP_QUERY_CONTENT_LENGTH,
+						queryBuffer,
+						querySizePtr,
+						NULL);
+					// More Stuff here to get total file size.
+
+
 					// Lets open that file now.
 					ofstream outputFile;
 					outputFile.open(filename.c_str(), ios::binary | ios::trunc);
