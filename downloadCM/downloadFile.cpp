@@ -161,19 +161,23 @@ void progressBar(double downloaded, double total)
 	int fracEmptySize = barSize - fracBarSize;
 
 	HANDLE curScreenOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-	bool GetConsoleScreenBufferInfo()
+	PCONSOLE_SCREEN_BUFFER_INFO screenInfo;
+	bool conInfoResult = GetConsoleScreenBufferInfo(curScreenOutput, screenInfo);
 
-	for (int count = 0; count < fracBarSize; count++)
+	if (conInfoResult == true)
 	{
-		// Progress
-	}
-	for (int count = 0; count < fracEmptySize; count++)
-	{
-		// Whitespace
-	}
+		cout << conInfoResult << endl;
+		for (int count = 0; count < fracBarSize; count++)
+		{
+			// Progress
+		}
+		for (int count = 0; count < fracEmptySize; count++)
+		{
+			// Whitespace
+		}
 
-	// Precentage done
-
+		// Precentage done
+	}
 }
 
 #endif
