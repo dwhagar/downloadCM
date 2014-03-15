@@ -77,8 +77,9 @@ int downloadFile(string url, string filename, int verbose)
 						queryBuffer,
 						querySizePtr,
 						NULL);
-					// More Stuff here to get total file size.
 
+					double fileSize = atof(queryBuffer);
+					double fileSizeDownloaded = 0;
 
 					// Lets open that file now.
 					ofstream outputFile;
@@ -88,7 +89,11 @@ int downloadFile(string url, string filename, int verbose)
 					bool readFile;
 					char dataIn[1024];
 					DWORD dataRead;
-					LPDWORD readSize = &dataRead;
+					LPDWORD dataReadPtr = &dataRead;
+
+					// We don't want to end up calling the progress bar too much so we
+					// have to poll for the current time before the loop starts.
+					time_t start = time(0);
 
 					// Here is our loop, should run until the server reports there is no more
 					// file to read.
@@ -98,13 +103,29 @@ int downloadFile(string url, string filename, int verbose)
 							httpReq,
 							dataIn,
 							1024,
-							readSize);
+							dataReadPtr);
+
+						fileSizeDownloaded += dataRead;
+
+						// We don't want to keep calling the progress bar
+						// exsessively so, we'll make sure we only do it once
+						// a second.
+						time_t timeNow = time(0);
+
+						if ((verbose == 1) && (timeNow > start))
+						{
+							progressBar(fileSizeDownloaded, fileSize);
+						}
 
 						outputFile.write(dataIn, dataRead);
 
 					} while ((readFile == TRUE) && (dataRead != 0));
 
 					outputFile.close(); // Make sure we close the file.
+					if (verbose == 1)
+					{
+						cout << endl;
+					}
 				}
 				else
 				{
@@ -131,6 +152,30 @@ int downloadFile(string url, string filename, int verbose)
 
 	return result;
 }
+
+void progressBar(double downloaded, double total)
+{
+	int barSize = 40;
+	double downloadFraction = downloaded / total;
+	int fracBarSize = round(downloadFraction * barSize);
+	int fracEmptySize = barSize - fracBarSize;
+
+	HANDLE curScreenOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+	bool GetConsoleScreenBufferInfo()
+
+	for (int count = 0; count < fracBarSize; count++)
+	{
+		// Progress
+	}
+	for (int count = 0; count < fracEmptySize; count++)
+	{
+		// Whitespace
+	}
+
+	// Precentage done
+
+}
+
 #endif
 
 #ifndef WIN32

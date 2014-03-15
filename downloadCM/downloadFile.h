@@ -10,6 +10,7 @@
 #define DOWNLOADFILE_H
 
 #include <string>
+#include <ctime>
 
 using namespace std;
 
@@ -29,6 +30,8 @@ int progress_func(void* ptr, double TotalToDownload, double NowDownloaded, doubl
 #pragma comment ( lib, "Wininet.lib" )
 
 const char pathEnd = '\\';
+
+void progressBar(double downloaded, double total);
 #endif
 
 // Both the Win32 and the Linux/Mac Code should fit into this prototype.
